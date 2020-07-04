@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
+    <link th:href="@{/webjars/datatables/css/jquery.dataTables.min.css}" rel="stylesheet">
+    <link th:href="@{/webjars/font-awesome/css/font-awesome.min.css}" rel="stylesheet">
+    <link th:href="@{/css/main.css}" rel="stylesheet"/>
+    <link th:href="@{/webjars/jquery-ui/jquery-ui.min.css}" rel="stylesheet">
+    <link th:href="@{/webjars/jquery-ui/jquery-ui.theme.min.css}" rel="stylesheet">
+    <title>Template</title>
+</head>
+<body>
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark p-2">
+    <div class="container">
+        <a th:href="@{/}" class="navbar-brand">UniEdu</a>
+        <button class="navbar-toggler"
+                data-toggle="collapse"
+                data-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li sec:authorize="hasRole('ADMIN')" class="nav-item">
+                    <a class="nav-link" th:href="@{/admin/course}">
+                        <span>Courses</span>
+                    </a>
+                </li>
+                <li sec:authorize="hasRole('STUDENT')" class="nav-item">
+                    <a class="nav-link" th:href="@{/student/course}">
+                        <span>Courses</span>
+                    </a>
+                </li>
+                <li sec:authorize="hasRole('ADMIN')" class="nav-item">
+                    <a class="nav-link" th:href="@{/admin/user}">
+                        <span>Users</span>
+                    </a>
+                </li>
+                <li sec:authorize="hasRole('INSTRUCTOR')" class="nav-item">
+                    <a class="nav-link" th:href="@{/instructor/course}">
+                        <span>Courses</span>
+                    </a>
+                </li>
+                <li sec:authorize="hasRole('ADMIN')" class="nav-item">
+                    <a class="nav-link" th:href="@{/admin/transactionByMonth}">
+                        <span>Transactions</span>
+                    </a>
+                </li>
+                <li sec:authorize="hasRole('ADMIN')" class="nav-item">
+                    <a class="nav-link" th:href="@{/admin/enrollment}">
+                        <span>Enrollment</span>
+                    </a>
+                </li>
+                <li sec:authorize="hasRole('STUDENT')" class="nav-item">
+                    <a class="nav-link" th:href="@{/student/profile}">
+                        <span>Profile</span>
+                    </a>
+                </li>
+                <li sec:authorize="hasRole('ADMIN')" class="nav-item">
+                    <a class="nav-link" th:href="@{/admin/payment}">
+                        <span>Payments</span>
+                    </a>
+                </li>
+                <li sec:authorize="hasRole('ADMIN')" class="nav-item">
+                    <a class="nav-link" th:href="@{/admin/register}">
+                        <span>Register</span>
+                    </a>
+                </li>
+                <li sec:authorize="isAuthenticated()" class="nav-item">
+                    <a class="nav-link" th:href="@{/about}">
+                        <span>About</span>
+                    </a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <form th:action="@{/logout}" method="post">
+                        <input sec:authorize="isAuthenticated()" value="Logout" type="submit" class="btn btn-link">
+                    </form>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/login}">
+                        <i class="fa fa-sign-in"></i>
+                        <span>Login</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<section layout:fragment="content">
+
+</section>
+
+
+
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+<script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+<script th:src="@{/js/main.js}"></script>
+<script th:src="@{/webjars/jquery-ui/jquery-ui.min.js}"></script>
+<script th:src="@{/webjars/datatables/js/jquery.dataTables.min.js}"></script>
+<script type="text/javascript" th:inline="none" class="init">
+    /*<![CDATA[*/
+    $(document).ready(function () {
+        $('#usersTable').DataTable({
+            "info" : false
+        });
+    });
+
+    $(document).ready(function () {
+        $('#marksTable').DataTable({
+            "info" : false
+        });
+    });
+
+    $(document).ready(function () {
+        $('#tutorialsTable').DataTable({
+            "info" : false
+        });
+    });
+
+    $(document).ready(function () {
+        $('#rankingsTable').DataTable({
+            "info" : false
+        });
+    });
+    $(document).ready(function () {
+        $('#paymentsTable').DataTable({
+            "info" : false
+        });
+    });
+
+    $(document).ready(function () {
+        $('#materialsTable').DataTable({
+            "info" : false
+        });
+    });
+
+    $(document).ready(function () {
+        $('#linksTable').DataTable({
+            "info" : false
+        });
+    });
+
+    $(document).ready(function () {
+        $('#coursesTable').DataTable({
+            "info" : false
+        });
+    });
+
+    $(document).ready(function () {
+        $('#transactionsTable').DataTable({
+            "info" : false
+        });
+    });
+
+    /*]]>*/
+
+    $(document).ready(function () {
+        $('#tabs').tabs();
+    })
+
+    // $(document).ready(function () {
+    //     $('#accordion').accordion();
+    // })
+</script>
+</body>
+</html>

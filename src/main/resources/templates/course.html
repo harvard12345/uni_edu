@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{template.html}"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Courses</title>
+</head>
+<body>
+<section layout:fragment="content">
+    <header id="main-header" class="py-2 bg-primary text-white">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h1>
+                        <i class="fa fa-institution"></i>
+                        Courses
+                    </h1>
+                </div>
+            </div>
+        </div>
+    </header>
+    <section id="actions" class="py-4 mb-4 bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 mb-1">
+                    <a class="btn btn-outline-primary btn-block" th:href="@{/}">
+                        <i class="fa fa-arrow-circle-left"></i>
+                        <span>Back to Home</span>
+                    </a>
+                </div>
+                <div sec:authorize="hasRole('ADMIN')" class="col-md-3 mb-1">
+                    <a th:href="@{/admin/courseCreate}" class="btn btn-primary btn-block">
+                        <i class="fa fa-plus-circle"></i>
+                        <span>Add New Course</span>
+                    </a>
+                </div>
+                <div sec:authorize="hasRole('STUDENT')" class="col-md-3">
+                    <a class="btn btn-primary btn-block" th:href="@{/student/ranking}">
+                        <i class="fa fa-line-chart"></i>
+                        <span>Rankings</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="posts">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                        <table id="coursesTable" class="display cell-border">
+                            <thead>
+                            <tr class="table-primary">
+                                <th>Name</th>
+                                <th>Fee & Duration</th>
+                                <th>Instructor</th>
+                                <th>Students</th>
+                                <th>Options</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="course : ${courses}">
+                                <td th:text="${course.name}"></td>
+                                <td th:text="|${course.feePerMonth} / ${course.duration}|"></td>
+                                <td th:text="${course.user.firstName}"></td>
+                                <td th:text="${course.numberOfStudents}"></td>
+                                <td>
+                                    <div class="container" sec:authorize="hasRole('ADMIN')">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <a th:href="@{/admin/courseUpdate(id=${course.id})}"
+                                                   class="btn btn-outline-primary btn-block">
+                                                    <i class="fa fa-edit"></i>
+                                                    <span>Update</span>
+                                                </a>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <a th:href="@{/admin/courseDelete(id=${course.id})}"
+                                                   class="deleteButton1 btn btn-outline-primary btn-block">
+                                                    <i class="fa fa-trash-o"></i>
+                                                    <span>Delete</span>
+                                                </a>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <a th:href="@{/admin/studentByCourse(courseId=${course.id})}"
+                                                   class="btn btn-outline-primary btn-block">
+                                                    <i class="fa fa-user"></i>
+                                                    <span>Student</span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="container" sec:authorize="hasRole('INSTRUCTOR')">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <a th:href="@{/instructor/studentByCourse(courseId=${course.id})}"
+                                                   class="btn btn-block btn-outline-primary">
+                                                    <i class="fa fa-user"></i>
+                                                    <span>Student</span>
+                                                </a>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <a th:href="@{/instructor/tutorial(courseId=${course.id})}"
+                                                   class="btn btn-block btn-outline-primary">
+                                                    <i class="fa fa-book"></i>
+                                                    <span>Tutorials</span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="container" sec:authorize="hasRole('STUDENT')">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <a th:href="@{/student/rankingByCourse(courseId=${course.id})}"
+                                                   class="btn btn-outline-primary btn-block">
+                                                    <i class="fa fa-line-chart"></i>
+                                                    <span>Rank</span>
+                                                </a>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <a th:href="@{/student/tutorial(courseId=${course.id})}"
+                                                   class="btn btn-outline-primary btn-block">
+                                                    <i class="fa fa-book"></i>
+                                                    <span>Tutorial</span>
+                                                </a>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <a th:href="@{/student/mark(courseId=${course.id})}"
+                                                   class="btn btn-outline-primary btn-block">
+                                                    <i class="fa fa-star"></i>
+                                                    <span>Mark</span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="modal fade" aria-labelledby="title" tabindex="-1" role="dialog" id="deleteModal1">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="title">Confirm Delete</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body alert-danger">
+                    Are you sure to delete the record?
+                </div>
+                <div class="modal-footer">
+                    <a href="" class="btn btn-primary" id="deleteId1">Delete</a>
+                    <button type="button" data-dismiss="modal" class="btn btn-secondary">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

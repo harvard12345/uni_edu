@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{template.html}">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+</head>
+<body>
+<section layout:fragment="content">
+    <header id="main-header" class="py-2 bg-primary text-white">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h1>
+                        <i class="fa fa-info-circle"></i>
+                        About
+                    </h1>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="jumbotron m-4">
+        <p>The application deployed in AWS ElasticBeanstalk is written in Java 11, Spring Framework. It has a database hosted in AWS RDS. The purpose of the application is for demo, so all the names are fabricated.</p>
+    </div>
+</section>
+</body>
+</html>

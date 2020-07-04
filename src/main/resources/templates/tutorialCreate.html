@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{template.html}">
+<head>
+    <meta charset="UTF-8">
+    <title>Tutorial</title>
+</head>
+<body>
+<section layout:fragment="content">
+    <header id="main-header" class="py-2 bg-info text-white">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h1>
+                        <i class="fa fa-book"></i>
+                        Tutorials
+                    </h1>
+                </div>
+            </div>
+        </div>
+    </header>
+    <section id="actions" class="py-4 mb-4 bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 mb-1">
+                    <a class="btn btn-outline-info btn-block"
+                       th:href="@{/instructor/tutorial(courseId=${param.courseId})}">
+                        <i class="fa fa-arrow-circle-left"></i>
+                        <span>Back to Tutorials</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="tutorialForm">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>New Tutorial Create Form</h4>
+                        </div>
+                        <form class="card-body" th:action="@{/instructor/tutorialCreate}" method="post" th:object="${tutorial}">
+                            <input type="hidden" th:field="*{id}">
+                            <div class="form-group">
+                                <label for="title">Title</label>
+                                <input type="text" class="form-control" id="title" required autofocus
+                                       th:field="*{title}">
+                            </div>
+                            <input type="hidden" th:field="*{courseId}">
+                            <div class="form-group">
+                                <label for="level">Level</label>
+                                <input type="number" class="form-control" id="level" required th:field="*{level}">
+                            </div>
+                            <div th:if="${#fields.hasErrors('level')}" style="border-radius: 10px"
+                                 class="alert-danger my-2  p-2">
+                                <span th:errors="*{level}"></span>
+                            </div>
+                            <input type="submit" class="btn btn-info btn-block" value="Submit">
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</section>
+</body>
+</html>

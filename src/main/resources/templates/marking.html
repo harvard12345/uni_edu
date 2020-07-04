@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{template.html}">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+</head>
+<body>
+<section layout:fragment="content">
+    <header id="main-header" class="py-2 bg-success text-white">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h1>
+                        <i class="fa fa-star-o"></i>
+                        Marking
+                    </h1>
+                </div>
+            </div>
+        </div>
+    </header>
+    <section id="actions" class="py-4 mb-4 bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 mb-1">
+                    <a class="btn btn-outline-success btn-block"
+                       th:href="@{/instructor/markBack(courseId=${param.courseId})}">
+                        <i class="fa fa-arrow-circle-left"></i>
+                        <span>Back To Students</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="markingForm">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>Mark Student</h4>
+                        </div>
+                        <form class="card-body" th:action="@{/instructor/mark}" method="post" th:object="${mark}">
+                            <input type="hidden" th:field="*{studentId}">
+                            <input type="hidden" th:field="*{courseId}">
+                            <div class="form-group">
+                                <label for="mark">Mark</label>
+                                <input type="number" class="form-control" id="mark" required autofocus
+                                       th:field="*{mark}">
+                            </div>
+                            <div style="border-radius: 10px" th:if="${#fields.hasErrors('mark')}"
+                                 class="alert-danger p-2 my-2">
+                                <span th:errors="*{mark}"></span>
+                            </div>
+                            <input type="submit" value="Save" class="btn btn-success btn-block">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</section>
+</body>
+</html>

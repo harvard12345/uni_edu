@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{template.html}">
+<head>
+    <meta charset="UTF-8">
+    <title>Transactions</title>
+</head>
+<body>
+<section layout:fragment="content">
+    <header id="main-header" class="py-2 bg-secondary text-white">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h1>
+                        <i class="fa fa-star"></i>
+                        Marks
+                    </h1>
+                </div>
+            </div>
+        </div>
+    </header>
+    <section id="actions" class="py-4 mb-4 bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 mb-1">
+                    <a class="btn btn-outline-secondary btn-block" th:href="@{/student/course}">
+                        <i class="fa fa-arrow-circle-left"></i>
+                        <span>Back to Courses</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="transactions">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                    <div class="table-responsive">
+                        <table id="marksTable" class="display cell-border">
+                            <thead>
+                            <tr class="table-secondary">
+                                <th>Date</th>
+                                <th>Mark</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="mark : ${marks}">
+                                <td th:text="${mark.date}"></td>
+                                <td th:text="${mark.mark}"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>Statistics</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="right-contents" th:each="statistic : ${summaryStatistics}">
+                                <ul class="list-unstyled">
+                                    <li>
+                                        <a class="justify-content-between d-flex">
+                                            <p>Total Mark</p>
+                                            <span th:text="${statistic.getSum()}"></span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="justify-content-between d-flex">
+                                            <p>Average Mark</p>
+                                            <span th:text="${statistic.getAverage()}"></span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="justify-content-between d-flex">
+                                            <p>Count of Marks</p>
+                                            <span th:text="${statistic.getCount()}"></span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="justify-content-between d-flex">
+                                            <p>Max Mark</p>
+                                            <span th:text="${statistic.getMax()}"></span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="justify-content-between d-flex">
+                                            <p>Min Mark</p>
+                                            <span th:text="${statistic.getMin()}"></span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+</section>
+</body>
+</html>

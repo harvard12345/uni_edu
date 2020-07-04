@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{template.html}"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+</head>
+<body>
+<section layout:fragment="content">
+    <header id="main-header" class="py-2 bg-info text-white">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h1>
+                        <i class="fa fa-list-alt"></i>
+                        Resource
+                    </h1>
+                </div>
+            </div>
+        </div>
+    </header>
+    <section id="actions" class="py-4 mb-4 bg-light">
+        <div class="container">
+            <div class="row">
+                <div sec:authorize="hasRole('STUDENT')" class="col-md-3 mb-1">
+                    <a th:href="@{/student/resourceBack(tutorialId=${param.tutorialId})}"
+                       class="btn btn-outline-info btn-block">
+                        <i class="fa fa-arrow-circle-left"></i>
+                        <span>Back to Tutorials</span>
+                    </a>
+                </div>
+                <div class="col-md-3 mb-1">
+                    <a sec:authorize="hasRole('INSTRUCTOR')"
+                       th:href="@{/instructor/resourceBack(tutorialId=${param.tutorialId})}"
+                       class="btn btn-outline-info btn-block">
+                        <i class="fa fa-arrow-circle-left"></i>
+                        <span>Back to Tutorials</span>
+                    </a>
+                </div>
+                <div class="col-md-3 mb-1" sec:authorize="hasRole('INSTRUCTOR')">
+                    <a th:href="@{/instructor/resourceCreate(tutorialId=${param.tutorialId})}"
+                       class="btn btn-info btn-block">
+                        <i class="fa fa-plus-circle"></i>
+                        <span>Add Material</span>
+                    </a>
+                </div>
+                <div sec:authorize="hasRole('INSTRUCTOR')" class="col-md-3 mb-1">
+                    <a th:href="@{/instructor/linkCreate(tutorialId=${param.tutorialId})}"
+                       class="btn btn-info btn-block">
+                        <i class="fa fa-plus-square"></i>
+                        <span>Add Link</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="resources">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="tabs">
+                        <ul>
+                            <li><a href="#tab1">Materials</a></li>
+                            <li><a href="#tab2">Links</a></li>
+                        </ul>
+                        <div id="tab1">
+                            <div class="table-responsive">
+                                <table id="materialsTable" class="display cell-border">
+                                    <thead>
+                                    <tr class="table-info">
+                                        <th>Resource</th>
+                                        <th sec:authorize="hasRole('INSTRUCTOR')">Options</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="resource : ${resources}">
+                                        <td>
+                                            <a class="btn btn-link"
+                                               th:text="${resource.originalName}"
+                                               th:href="@{/student/download(id=${resource.id})}">
+                                            </a>
+                                        </td>
+                                        <td sec:authorize="hasRole('INSTRUCTOR')">
+                                            <a th:href="@{/instructor/resourceDelete(id=${resource.id}, tutorialId=${resource.tutorial.id})}"
+                                               class="btn btn-outline-info btn-block">
+                                                <i class="fa fa-trash-o"></i>
+                                                <span>Delete</span>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div id="tab2">
+                            <div class="table-responsive">
+                                <table id="linksTable" class="display cell-border">
+                                    <thead>
+                                    <tr class="table-info">
+                                        <th>Resource</th>
+                                        <th sec:authorize="hasRole('INSTRUCTOR')">Options</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="link : ${links}">
+                                        <td>
+                                            <a class="btn btn-link" th:href="${link.url}" th:text="${link.url}"></a>
+                                        </td>
+                                        <td sec:authorize="hasRole('INSTRUCTOR')">
+                                            <a class="btn btn-outline-info btn-block"
+                                               th:href="@{/instructor/linkDelete(id=${link.id},tutorialId=${param.tutorialId})}">
+                                                <i class="fa fa-trash-o"></i>
+                                                <span>Delete</span>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</section>
+</body>
+</html>

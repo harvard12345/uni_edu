@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{template.html}"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Students</title>
+</head>
+<body>
+<section layout:fragment="content">
+    <header id="main-header" class="py-2 bg-success text-white">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h1>
+                        <i class="fa fa-group"></i>
+                        Students
+                    </h1>
+                </div>
+            </div>
+        </div>
+    </header>
+    <section id="actions" class="py-4 mb-4 bg-light">
+        <div class="container">
+            <div class="row">
+                <div sec:authorize="hasRole('ADMIN')" class="col-md-3 mb-1">
+                    <a class="btn btn-outline-success btn-block" th:href="@{/admin/course}">
+                        <i class="fa fa-arrow-circle-left"></i>
+                        <span>Back to Courses</span>
+                    </a>
+                </div>
+                <div sec:authorize="hasRole('INSTRUCTOR')" class="col-md-3 mb-1">
+                    <a th:href="@{/instructor/course}"
+                       class="btn btn-outline-success btn-block">
+                        <i class="fa fa-arrow-circle-left"></i>
+                        <span>Back to Courses</span>
+                    </a>
+                </div>
+                <div sec:authorize="hasRole('STUDENT')" class="col-md-3 mb-1">
+                    <a th:href="@{/student/course}"
+                       class="btn btn-outline-success btn-block">
+                        <i class="fa fa-arrow-circle-left"></i>
+                        <span>Back to Courses</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="students">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>Registered Students</h4>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table-striped table table-bordered">
+                                <thead>
+                                <tr class="table-success">
+                                    <th>Full name</th>
+                                    <th>Username</th>
+                                    <th sec:authorize="hasRole('ADMIN')">Password</th>
+                                    <th>Options</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="user : ${students}">
+                                    <td th:text="|${user.lastName} ${user.firstName}|"></td>
+                                    <td th:text="${user.username}"></td>
+                                    <td sec:authorize="hasRole('ADMIN')" th:text="${user.rawPassword}"></td>
+                                    <td>
+                                        <div class="container" sec:authorize="hasRole('ADMIN')">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <a th:href="@{/admin/studentProfile(id=${user.id},courseId=${param.courseId})}"
+                                                       class="btn btn-outline-success btn-block">
+                                                        <i class="fa fa-user"></i>
+                                                        <span>Profile</span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="container" sec:authorize="hasRole('INSTRUCTOR')">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <a th:href="@{/instructor/mark(studentId=${user.id},courseId=${param.courseId})}"
+                                                       class="btn btn-outline-success btn-block">
+                                                        <i class="fa fa-star-o"></i>
+                                                        <span>Mark</span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</section>
+</body>
+</html>

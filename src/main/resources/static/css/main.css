@@ -1,0 +1,33 @@
+.right-contents ul li {
+    background: #f9f9ff;
+    padding: 10px 22px;
+    margin-bottom: 10px
+}
+
+.right-contents ul li a {
+    color: #222;
+    text-align: left;
+    font-size: 14px;
+    font-weight: 400
+}
+
+.right-contents ul li a p {
+    margin-bottom: 0px
+}
+
+.right-contents ul li .or {
+    color: #f7631b !important
+}
+
+.right-contents .primary-btn {
+    margin-top: 10px;
+    width: 100%;
+    background: #222;
+    text-align: center
+}
+
+@media (max-width: 991px) {
+    .right-contents {
+        margin-top: 30px
+    }
+}

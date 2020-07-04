@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{template.html}">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+</head>
+<body>
+<section layout:fragment="content">
+    <header id="main-header" class="py-2 bg-info text-white">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h1>
+                        <i class="fa fa-list-alt"></i>
+                        Resource
+                    </h1>
+                </div>
+            </div>
+        </div>
+    </header>
+    <section id="actions" class="py-4 mb-4 bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 mb-1">
+                    <a th:href="@{/instructor/linkBack(tutorialId=${param.tutorialId})}"
+                       class="btn btn-outline-info btn-block">
+                        <i class="fa fa-arrow-circle-left"></i>
+                        <span>Back to Tutorials</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="linkForm">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>New Link Create Form</h4>
+                        </div>
+                        <form class="card-body" th:action="@{/instructor/linkCreate}" method="post" th:object="${link}">
+                            <div class="form-group">
+                                <label for="link">Link</label>
+                                <input type="text" id="link" required autofocus class="form-control" th:field="*{url}">
+                            </div>
+                            <input type="hidden" th:field="*{tutorialId}">
+                            <input type="submit" class="btn btn-info btn-block" value="Submit">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</section>
+</body>
+</html>

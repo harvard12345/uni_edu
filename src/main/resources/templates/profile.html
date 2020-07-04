@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{template.html}"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+</head>
+<body>
+<section layout:fragment="content">
+    <header id="main-header" class="py-2 bg-secondary text-white">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h1>
+                        <i class="fa fa-user"></i>
+                        Profile
+                    </h1>
+                </div>
+            </div>
+        </div>
+    </header>
+    <section id="actions" class="py-4 mb-4 bg-light">
+        <div class="container">
+            <div class="row">
+                <div sec:authorize="hasRole('STUDENT')" class="col-md-3 mb-1">
+                    <a class="btn btn-outline-secondary btn-block" th:href="@{/}">
+                        <i class="fa fa-arrow-circle-left"></i>
+                        <span>Back to Home</span>
+                    </a>
+                </div>
+                <div sec:authorize="hasRole('ADMIN')" class="col-md-3 mb-1">
+                    <a class="btn btn-outline-secondary btn-block"
+                       th:href="@{/admin/studentByCourse(courseId=${courseId})}">
+                        <i class="fa fa-arrow-circle-left"></i>
+                        <span>Back to Students</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="profile">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>Payment Statistics</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-6 right-contents h4" th:each="statistic : ${statistics}">
+                                        <ul class="list-unstyled">
+                                            <li>
+                                                <a class="justify-content-between d-flex">
+                                                    <p>Course name</p>
+                                                    <span class="or" th:text="${statistic.courseName}"></span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="justify-content-between d-flex">
+                                                    <p>Enrollment Date</p>
+                                                    <span th:text="${statistic.enrollmentDate}"></span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="justify-content-between d-flex">
+                                                    <p>Debt</p>
+                                                    <span th:text="${statistic.amountToPay}"></span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="justify-content-between d-flex">
+                                                    <p>Asset</p>
+                                                    <span th:text="${statistic.paidAmount}"></span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="justify-content-between d-flex">
+                                                    <p>Studying month</p>
+                                                    <span th:text="${statistic.studyingMonth}"></span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>Student Details</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-12 right-contents">
+                                        <ul class="list-unstyled">
+                                            <li>
+                                                <a class="justify-content-between d-flex">
+                                                    <p>First name</p>
+                                                    <span th:text="${user.firstName}"></span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="justify-content-between d-flex">
+                                                    <p>Last name</p>
+                                                    <span th:text="${user.lastName}"></span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="justify-content-between d-flex">
+                                                    <p>Username</p>
+                                                    <span th:text="${user.username}"></span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="justify-content-between d-flex">
+                                                    <p>Password</p>
+                                                    <span th:text="${user.rawPassword}"></span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="justify-content-between d-flex">
+                                                    <p>Phone</p>
+                                                    <span th:text="${user.phone}"></span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="justify-content-between d-flex">
+                                                    <p>Address</p>
+                                                    <span th:text="${user.address}"></span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</section>
+</body>
+</html>

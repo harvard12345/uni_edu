@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{template.html}">
+<head>
+    <meta charset="UTF-8">
+    <title>Discount</title>
+</head>
+<body>
+<section layout:fragment="content">
+    <header id="main-header" class="py-2 bg-secondary text-white">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h1>
+                        <i class="fa fa-id-card"></i>
+                        Discount
+                    </h1>
+                </div>
+            </div>
+        </div>
+    </header>
+    <section id="actions" class="py-4 mb-4 bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 mb-1">
+                    <a class="btn btn-outline-secondary btn-block"
+                       th:href="@{/admin/discount}">
+                        <i class="fa fa-arrow-circle-left"></i>
+                        <span>Back to Discounts</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="tutorialForm">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>New Discount Create Form</h4>
+                        </div>
+                        <form class="card-body" th:action="@{/admin/discountCreate}" method="post"
+                              th:object="${discount}">
+                            <input type="hidden" th:field="*{id}">
+                            <div class="form-group">
+                                <label for="cc">Course Count</label>
+                                <input type="number" class="form-control" id="cc" required autofocus
+                                       th:field="*{coursesCount}">
+                            </div>
+                            <div class="form-group">
+                                <label for="amount">Amount</label>
+                                <input type="number" class="form-control" id="amount" required th:field="*{amount}">
+                            </div>
+                            <input type="submit" class="btn btn-secondary btn-block" value="Submit">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</section>
+</body>
+</html>
