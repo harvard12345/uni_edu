@@ -16,4 +16,13 @@ Authorities of each type of user are separate, which means they can only access 
 * Teachers can upload new materials, put marks, etc.
 * Admins can create courses, users, enroll students to courses, record finnacial transactions, etc.
 
+Sample username and password for admin:
+
+* username: harvard
+* password: harvard12345
+
 The application has been deployed to AWS using AWS Elastic Beanstalk and AWS RDS [link](http://uniedu-env.eba-tp55hsj6.us-east-1.elasticbeanstalk.com/).
+
+**Attention!**
+
+All the names inside the application are fabricated and for just demonstration purposes.
