@@ -21,7 +21,9 @@ Sample username and password for admin:
 * username: harvard
 * password: harvard12345
 
-The application has been deployed to AWS using AWS Elastic Beanstalk and AWS RDS [link](http://uniedu-env.eba-tp55hsj6.us-east-1.elasticbeanstalk.com/).
+The application has been deployed to AWS using **AWS Elastic Beanstalk** and **AWS RDS** [link](http://uniedu-env.eba-tp55hsj6.us-east-1.elasticbeanstalk.com/).
+
+The application has been deployed to **AWS EC2** using **Docker** container [link](http://ec2-35-153-135-24.compute-1.amazonaws.com/).
 
 **Attention!**
 
